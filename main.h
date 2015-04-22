@@ -26,7 +26,6 @@
 #define GetSystemClock()         (SYSTEM_CLOCK)
 #define GetPeripheralClock()     (SYSTEM_CLOCK)
 #define GetInstructionClock()    (SYSTEM_CLOCK)
-#define I2C_CLOCK_FREQ           100000
 
 #define PMODTmp_I2C_BUS    I2C2
 #define PMODTmp_ADDRESS    0x4B 
@@ -37,37 +36,37 @@
 #define TIMER_PRI 2			//lcd priority
 #define SWITCH_PRI 1		//switch isr
 #define P_CLK 40000000		//peripheral clock override
-#define true 1
-#define false 0
 
-static void prvSetupHardware( void );
-// Tasks
-void vTaskWriteUART (void *pvParameters);
-void vTaskUpdateSpeed (void *pvParameters);
-void vTaskGetTemp(void *pvParameters);
-// SPI
-void setupSPI_ports (void);
-void setup_SPI2 (void);
-//UART
-void setupUART2( void );
-// Buttons
-void setup_Switches(void);
-//I2C
-void setupTMP(void);
-BOOL TransmitOneByte(UINT8 data);
-BOOL StopTransfer(void);
-BOOL StartTransfer(BOOL Restart);
-//Motors
-void setupOC(void);
-void setupHB (void);
-//Calc Functions
-double getFarenheit(int tempTemp);
-double MilePerHour(int pulse, int prevPulse);
-double Distance(int pulse);
-//Speed and Forward
-void checkSpeed(void);
-int forwardTen(void);
-//no op
-void delay (unsigned int ms);
 //interrupts
-void setupEXT3Int(void);
+void __attribute__((interrupt(ipl5), vector (_EXTERNAL_3_VECTOR))) vEXT3InterruptWrapper (void);
+void __attribute__((interrupt(ipl5), vector (_INPUT_CAPTURE_2_VECTOR))) vIC2InterruptWrapper (void);
+void __attribute__((interrupt(ipl5), vector (_INPUT_CAPTURE_3_VECTOR))) vIC3InterruptWrapper (void);
+
+//create the bool type
+typedef enum { false, true } bool;
+
+//create a queue handler
+xQueueHandle queueUART;
+//create a semaphore
+static xSemaphoreHandle ocSema = NULL;
+
+// Globals for setting up pmod CLS
+const unsigned char enable_display[] = {27, '[', '3', 'e', '\0'};
+const unsigned char set_cursor[] = {27, '[', '1', 'c', '\0'};
+const unsigned char home_cursor[] = {27, '[', 'j', '\0'};
+const unsigned char wrap_line[] = {27, '[', '0', 'h', '\0'};
+const unsigned char clear[] = {27,'[', 'j', '\0'};
+const unsigned char second_line[] = {27, '[', '1', ';', '0', 'H', '\0'};
+const unsigned char back_light[] = {27, '[', '3', 'e', '\0'};
+const unsigned char print_second[] = {27, '[', '1', '@', '\0'};
+
+//Globals wheel to get TMR value on
+volatile int left = 0;
+volatile int right = 0;
+volatile int pulse = 0;
+int flagit = 0;
+
+
+
+//no op(found in utility.h)
+void delay (unsigned int ms);
