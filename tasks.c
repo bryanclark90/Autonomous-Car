@@ -11,8 +11,7 @@ void vTaskGetTemp(void *pvParameters)
 	int               Index;
 	int               DataSz;
 	UINT32            actualClock;
-	//   BOOL              Acknowledged;
-	BOOL              Success = TRUE;
+	bool              Success = true;
 	UINT8             i2cbyte;
 	//set the I2C baudrate
 	actualClock = I2CSetFrequency(PMODTmp_I2C_BUS, GetPeripheralClock(),I2C_CLOCK_FREQ);
@@ -22,7 +21,7 @@ void vTaskGetTemp(void *pvParameters)
 	}
 	while(1) {
 		//Enable the I2C bus
-		I2CEnable(PMODTmp_I2C_BUS, TRUE);
+		I2CEnable(PMODTmp_I2C_BUS, true);
 		// Initialize data buffer
 		I2C_FORMAT_7_BIT_ADDRESS(SlaveAddress, PMODTmp_ADDRESS, I2C_WRITE);
 		i2cData[0] = SlaveAddress.byte;
@@ -35,7 +34,8 @@ void vTaskGetTemp(void *pvParameters)
 		int TempData[2] = {};
 
 		while(getData < 2) {
-			if(StartTransfer(TRUE)) {
+			//start a transfer
+			if(!startI2CTransfer(false)) {
 				while(1);
 			}
 			//2. send 7-bit slave address as write(the dummy write)
@@ -43,18 +43,18 @@ void vTaskGetTemp(void *pvParameters)
 			Index = 0;
 			while(Success && (Index < DataSz)) {
 				//transmit a byte
-				if(TransmitOneByte(i2cData[Index])) {
+				if(transmitOneByteI2C(i2cData[Index])) {
 					// Advance to the next Byte
 					Index++;
 
 					//verify that the byte was acknowledged
 					if(!I2CByteWasAcknowledged(PMODTmp_I2C_BUS)) {
 						DBPRINTF("ERROR: Sent byte was not acknowledged.\n");
-						Success = FALSE;
+						Success = false;
 					}
 				}
 				else {
-				Success = FALSE;
+					Success = false;
 				}
 
 			}
@@ -64,29 +64,29 @@ void vTaskGetTemp(void *pvParameters)
 			if(Success) {
 				//3. repeat start condition
 				// Send a Repeated Started condition
-				if( !StartTransfer(TRUE) ){
+				if(!startI2CTransfer(false) ){
 					while(1);
 				}
 
 				//4. send seven bit slave address with read bit(R/W = 1)
 				I2C_FORMAT_7_BIT_ADDRESS(SlaveAddress, PMODTmp_ADDRESS, I2C_READ);
-				if (TransmitOneByte(SlaveAddress.byte)) {
+				if (transmitOneByteI2C(SlaveAddress.byte)) {
 					// Verify that the byte was acknowledged
 					if(!I2CByteWasAcknowledged(PMODTmp_I2C_BUS)) {
 						DBPRINTF("Error: Sent byte was not acknowledged\n");
-						Success = FALSE;
+						Success = false;
 					}
 				}
 				else {
-					Success = FALSE;
+					Success = false;
 				}
 			}
 
 		 	//5. Read from buffer
 			if(Success) {
-				if(I2CReceiverEnable(PMODTmp_I2C_BUS, TRUE) == I2C_RECEIVE_OVERFLOW) {
+				if(I2CReceiverEnable(PMODTmp_I2C_BUS, true) == I2C_RECEIVE_OVERFLOW) {
 					DBPRINTF("Error: I2C Receive Overflow\n");
-					Success = FALSE;
+					Success = false;
 				}
 				else {
 					while(!I2CReceivedDataIsAvailable(PMODTmp_I2C_BUS));
@@ -96,7 +96,7 @@ void vTaskGetTemp(void *pvParameters)
 			}
 
 			// End the transfer (stop here if an error occured)
-			StopTransfer();
+			stopI2CTransfer();
 			if(!Success) {
 				while(1);
 			}

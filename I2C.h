@@ -4,6 +4,6 @@
 
 //I2C
 void setupI2C(void);
-BOOL TransmitOneByte(UINT8 data);
-BOOL stopI2CTransfer(void);
-BOOL startI2CTransfer(BOOL Restart);
+bool startI2CTransfer(bool restart);
+bool stopI2CTransfer(void);
+bool transmitOneByteI2C(UINT8 data);
