@@ -61,9 +61,9 @@ const unsigned char back_light[] = {27, '[', '3', 'e', '\0'};
 const unsigned char print_second[] = {27, '[', '1', '@', '\0'};
 
 //Globals wheel to get TMR value on
-volatile int left = 0;
-volatile int right = 0;
-volatile int pulse = 0;
+volatile int gLeft = 0;
+volatile int gRight = 0;
+volatile int gPulse = 0;
 int flagit = 0;
 
 

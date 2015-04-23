@@ -1,72 +1,82 @@
-/////////////////////////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////  CALCULATIONS  ////////////////////////////////////////////
-/////////////// THIS SECTION DEFINES ALL THE CALCULATIONS NEED TO DISPLAY TO PMOD  CLS  /////////////
-/////////////////////////////////////////////////////////////////////////////////////////////////////
-//converts I2C data into Celcius then Farenheit temp
-double getFarenheit(int tempTemp)
+/* 
+ * @function: double calcFarenheit(int unfilteredTemp)
+ *
+ * @param:    int unfilteredTemp  These two bytes form a two?s
+ *			                      complement 16-bit integer,
+ *
+ * @returns:  temperature in Farenhiet 
+ *
+ *            if the temp is shifted to the right three bits 
+ *            and multiplied by 0.0625 the resulting signed 
+ *            floating point value will be a temperature reading 
+ *            in degrees Celsius. Using this can convert to farenhiet by 
+ *            multiplying that by  9/5 and adding 32
+ */
+double calcFarenheit(int unfilteredTemp)
 {
-//    These two bytes form a two?s
-//complement 16-bit integer, if the result is
-//shifted to the right three bits and multiplied by
-//0.0625 the resulting signed floating point value
-//will be a temperature reading in degrees
-//Celsius
-	double Celsius = 0.0;
-	double Far;
-	Celsius = tempTemp >> 3;
-	Celsius *= .0625;
-	Far = ((9/5)*Celsius) + 32;
-	return Far;
+	double celsius = unfilteredTemp >> 3;
+	celcius *=  *.0625;
+	return ((9/5)*(celsius) + 32);
 }
-//takes total number of pulses and converts them into MPH
-double MilePerHour(int pulse, int prevPulse)
+
+/* 
+ * @function: double calcMPH(int prevPulse)
+ *
+ * @param:    none
+ *
+ * @returns:  the average MPH since last function call
+ *
+ *            multiplies the difference in pulses since last call by 7.85 
+ *            in(diamete of wheel)/115 pulses(per one full diameter)
+ *            and returns this value in MPH
+ */
+double calcMPH(void)
 {
-	//115 pulser per 7.85 inches
-	double amp = 0.0;
-	amp = .003878;
-	double MPH = 0.0;
-	int current_pulse = 0;
+	static int lastPulse = 0;
+	//115 pulses per 7.85 inches
+	static const double amp = .003878;
+	//number of pulses between last calculation
+	int pulseWidth = gPulse - lastPulse;
+	lastPulse = gPulse;
 
-	current_pulse = pulse - prevPulse;
-
-	MPH = amp * current_pulse;
-
-
-   return MPH;
+	return (double)(amp * pulseWidth); 
 }
-//Gets the total Distance Traveled based on number of pulses
-double Distance(int pulse)
+
+/* 
+ * @function: double calcDistance(int pulse)
+ *
+ * @param:    none
+ *
+ * @returns:  distance traveled in feet
+ *
+ *            multiplies number of pules by 7.85 in(diamete of wheel)/115 pulses(per one full diameter)
+ *            and divides by 12 inches in a foot to get distance in feet
+ */
+double calcDistance(void)
 {
 	//we know 7.85 inches for every 115 pulses therefore
-	double distance = 0.0;
-	distance = 7.85*(pulse/115);
-	distance = distance/12;
-
-   return distance;
+	return (7.85*(gPulse/115))/12;
 }
 
 /* 
  * @function: int forwardTen
  *
- * @param:    none
- * 
+ * @param:    none though the global pulse is used to check against
+ *
+ * @returns:  true if have gone ten feet, false otherwise
+ *
  *            counts the number of pulses 
  *            to go ten feet with the motors
  */
-int forwardTen(void)
+bool calcIfTen(void)
 {
-	int pulser = 0;
-	int flag = 0;
-	pulser = pulse;
-	//go ten feet
-	if(pulser == 1758) {
-		flag = 1;
+	//go ten feet and then disbale motors
+	if(gPulse >= 1758) {
 		OC2CON &= ~(1<< 15);
 		OC3CON &= ~(1 << 15);
 		delay(1000000);
+		return true;
 
 	}
-
-	return flag;
+	return false;
 }

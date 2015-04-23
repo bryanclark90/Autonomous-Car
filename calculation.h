@@ -1,9 +1,9 @@
 #include "main.h"
 
 //Calc Functions
-double getFarenheit(int tempTemp);
-double MilePerHour(int pulse, int prevPulse);
-double Distance(int pulse);
+double calcFarenheit(int unfilteredTemp);
+double calcMPH(void);
+double calcDistance(void);
 //Speed and Forward
 void checkSpeed(void);
-int forwardTen(void);
+bool calcIfTen(void);
