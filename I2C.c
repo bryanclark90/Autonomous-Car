@@ -1,3 +1,4 @@
+#include "I2C.h"
 /* 
  * @function: void setupI2C(void)
  *

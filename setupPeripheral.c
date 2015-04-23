@@ -1,4 +1,15 @@
-/*-----------------------------------------------------------*/
+#include "setupPeripheral.h"
+
+/* 
+ * @function: void prvSetupHardware( void )
+ *
+ * @param:    none
+ * 
+ * @return:   peripherals set up
+ *
+ *			  calls all the setups 
+ *							  
+ */
 static void prvSetupHardware( void )
 {
 	//configure the hardware for maximum performance.
@@ -24,11 +35,16 @@ static void prvSetupHardware( void )
 	setupEXT3Int();
 }
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////   Setups     //////////////////////////////////////////////////
-////////////////////////     THIS SECTION DEFINES ALL THE STETUPS    ////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////////////////////////
-//Sets up Switches for use
+/* 
+ * @function: void setup_Switches(void)
+ *
+ * @param:    none
+ * 
+ * @return:   peripherals set up
+ *
+ *			  sets up the switches for the cerebot 
+ *							  
+ */
 void setup_Switches(void)
 {
 	// Setup the two on-board buttons for read; input pins
@@ -40,7 +56,15 @@ void setup_Switches(void)
 	// IOPORT_A and BIT_XX are defined in <peripheral/ports.h>
 	PORTSetPinsDigitalIn (IOPORT_A, BIT_14 | BIT_15);
 }
-//Sets up Timers
+
+/* 
+ * @function: void vSetupTimer2 (void)
+ *
+ * @param:    none
+ * 
+ * @return:   turns on timer 2
+ *							  
+ */
 void vSetupTimer2 (void)
 {
 	T2CON = 0;
@@ -48,28 +72,34 @@ void vSetupTimer2 (void)
 	PR2 = 1000;    // (unsigned short)( (configPERIPHERAL_CLOCK_HZ / (unsigned long)1000)-1);// usFrequencyHz
 	T2CON = (BIT_15 | BIT_6 | BIT_3); //start the timer
 }
-//Sets up External Interrupts
+
+/* 
+ * @function: void setupEXT3Int(void)
+ *
+ * @param:    none
+ * 
+ * @return:   sets up external interrupt 4
+ *							  
+ */
 void setupEXT3Int(void)
 {
 	ConfigINT3( EXT_INT_PRI_1 | RISING_EDGE_INT | EXT_INT_ENABLE );
 }
-void setupEXT4Int(void)
-{
-	ConfigINT4( EXT_INT_PRI_1 | RISING_EDGE_INT | EXT_INT_ENABLE );
-}
-//Sets up Oput Compare Modules
+
+/* 
+ * @function: void OC3CONsetup(void)
+ *
+ * @param:    none
+ * 
+ * @return:   sets up OC3
+ *							  
+ */
 void OC3CONsetup(void)
 {
-	//MACROS
- //   PORTSetBits(IOPORT_D, (1<< 7) ); //set h bridge dir
-	// The right most arguments of the OpenOC1 call represent the duty cycle of the output waveform
- //   OpenOC3( OC_ON | OC_TIMER_MODE16 | OC_TIMER2_SRC | OC_IDLE_STOP | OC_PWM_FAULT_PIN_DISABLE, 0x5FFF, 0x5FFF );
-
 	OC3CON = 0;
 	OC3R = 0x5FFF;
 	OC3RS = 0x5FFF;
 	OC3CON = (
-			/*			BIT_15 |	//oc1 on*/
 			BIT_5 |		//16 bit mode
 			BIT_2 |		//mode 110: pwm
 			BIT_1 );	//	"
@@ -78,17 +108,22 @@ void OC3CONsetup(void)
 	mOC3IntEnable( true );
 	mOC3SetIntPriority( OC_PRI );
 }
+
+/* 
+ * @function: void OC2CONsetup(void)
+ *
+ * @param:    none
+ * 
+ * @return:   sets up OC2
+ *							  
+ */
 void OC2CONsetup(void)
 {
-	//MACROS
-  //  PORTClearBits(IOPORT_D, (1 << 6) ); //set h bridge dir
-	// The right most arguments of the OpenOC1 call represent the duty cycle of the output waveform
-///    OpenOC2( OC_ON | OC_TIMER_MODE16 | OC_TIMER2_SRC | OC_IDLE_STOP | OC_PWM_FAULT_PIN_DISABLE, 0x4FFF, 0x4FFF );
-		OC2CON = 0;
+
+	OC2CON = 0;
 	OC2R = 0x5FFF;
 	OC2RS = 0x5FFF;
 	OC2CON = (
-			/*			BIT_15 |	//oc1 on*/
 			BIT_5 |		//16 bit mode
 			BIT_2 |		//mode 110: pwm
 			BIT_1 );	//	"
@@ -97,7 +132,15 @@ void OC2CONsetup(void)
 	mOC2IntEnable( true );
 	mOC2SetIntPriority( OC_PRI );
 }
-//sets up motors for use
+
+/* 
+ * @function: void setupHB ( void )
+ *
+ * @param:    none
+ * 
+ * @return:   sets up the HBridge which drives the OC control of 2 and 3
+ *							  
+ */
 void setupHB ( void )
 {
 	//(1 <<8) for TrisD
@@ -109,54 +152,71 @@ void setupHB ( void )
 	PORTSetPinsDigitalOut( IOPORT_D, BIT_2 ); //Enable pin
 	//Clear bits on port D
 	PORTClearBits (IOPORT_D, BIT_1); // Make sure no waveform is outputted to Enable pin
-	 PORTClearBits (IOPORT_D, BIT_2); // Make sure no waveform is outputted to Enable pin
+	PORTClearBits (IOPORT_D, BIT_2); // Make sure no waveform is outputted to Enable pin
 }
-//sets up input capture from our HBridges
+
+/* 
+ * @function: void setupHB ( void )
+ *
+ * @param:    none
+ * 
+ * @return:   sets up input capture on the HBridge=
+ *							  
+ */
 void setupInCap(void)
 {
  //IC2
-		IC2CON = 0;
+	IC2CON = 0;
 	IC2CON = (
 			BIT_15 |	//enable
 			BIT_9 |		//rising edge
 			BIT_7 |		//timer 2 source
 			BIT_1 |		//011 - every rising edge
-			BIT_0 );	//	"
+			BIT_0 );
 
 	mIC2SetIntPriority( IC_PRI );
 	mIC2SetIntSubPriority( 2 );
 	mIC2IntEnable( true );
 	mIC2ClearIntFlag();
   //IC3
-		IC3CON = 0;
+	IC3CON = 0;
 	IC3CON = (
 			BIT_15 |	//enable
 			BIT_9 |		//rising edge
 			BIT_7 |		//timer 2 source
 			BIT_1 |		//011 - every rising edge
-			BIT_0 );	//	"
+			BIT_0 );
 
 	mIC3SetIntPriority( IC_PRI );
 	mIC3SetIntSubPriority( 1 );
 	mIC3IntEnable( true );
 	mIC3ClearIntFlag();
 }
-//A simple function that properly sets up SPI for PMOD Accelerometer
+
+/* 
+ * @function: void setupSPI_ports(void)
+ *
+ * @param:    none
+ * 
+ * @return:   simple function that properly sets up SPI for PMOD Accelerometer
+ *							  
+ */
 void setupSPI_ports(void)
 {
-	// Master Mode
-		/* SDO2 - Output - RG08
-	   SDI2 - Input  - RG07
-	   SCK2 - Output - RG06
-	   SS2  - Output - RG09
-	   */
-
-	   PORTSetPinsDigitalOut(IOPORT_G, BIT_8 | BIT_6 | BIT_9);
-	   PORTSetPinsDigitalIn (IOPORT_G, BIT_7);
-	   PORTSetPinsDigitalOut(IOPORT_E, BIT_0);
+	PORTSetPinsDigitalOut(IOPORT_G, BIT_8 | BIT_6 | BIT_9);
+	PORTSetPinsDigitalIn (IOPORT_G, BIT_7);
+	PORTSetPinsDigitalOut(IOPORT_E, BIT_0);
 }
-// a companion function to the SPI ports
-// sets up SPI on Channel 2
+
+/* 
+ * @function: void setupSPI_ports(void)
+ *
+ * @param:    none
+ * 
+ * @return:   sets up SPI on Channel 2
+ *	
+ *            a companion function to the SPI ports						  
+ */
 void setup_SPI2(void)
 {
 	SpiChnOpen(2, SPI_CON_MSTEN  | SPI_CON_MODE8 | SPI_CON_ON | CLK_POL_ACTIVE_LOW, 256);
@@ -165,7 +225,15 @@ void setup_SPI2(void)
 	PORTSetBits (IOPORT_G, BIT_9);
 	PORTClearBits (IOPORT_G, BIT_9);
 }
-//Sets up UART for use in displaying info to PMOD CLS screen
+
+/* 
+ * @function: void setupSPI_ports(void)
+ *
+ * @param:    none
+ * 
+ * @return:   sets up UART for use in displaying info to PMOD CLS screen
+ *							  
+ */
 void setupUART2( void )
 {
 	//set up the ports
@@ -200,7 +268,15 @@ void setupUART2( void )
 
 
 /* 
-*/
+ * @function: void vEXT3InterruptHandler (void)
+ *
+ * @param:    none
+ * 
+ * @return:   when interrupt 3 fires, it sets up timer 2
+ *            and starts the wheels. This interrupt is tied to
+ *            to the switch
+ *							  
+ */
 void vEXT3InterruptHandler (void)
 {
 
@@ -216,25 +292,44 @@ void vEXT3InterruptHandler (void)
 	//Clear Flag
 	IFS0bits.INT3IF = 0;
 }
+
 /* 
-*/
+ * @function: void vIC2InterruptHandler (void)
+ *
+ * @param:    none
+ * 
+ * @return:   fires when ever the motor turns one pulse
+ *            updates the global gLeft, to keep track of number
+ *            of times the left motor has turned
+ *							  
+ */
 void vIC2InterruptHandler (void)
 {
 	//store value of TMR2 
 	//on IC1 Event into "left"
-	left++;
+	gLeft++;
 	//Clear Flag
 	IFS0bits.IC2IF = 0;
 }
+
 /* 
-*/
-void vIC3InterruptHandler (void)
+ * @function: void vIC3InterruptHandler (void)
+ *
+ * @param:    none
+ * 
+ * @return:   fires when ever the motor turns one pulse
+ *            updates the global gReft, to keep track of number
+ *            of times the right motor has turned, and updates
+ *            gPulse to use for distance measurements.
+ *							  
+ */
+ void vIC3InterruptHandler (void)
 {
 	 //update the number of pulses
-	 pulse++;
+	 gPulse++;
 	 //store value of TMR2 
 	 //on IC1 Event into "right" 
-	 right++;
+	 gRight++;
 
 	IFS0bits.IC3IF = 0;
 }
