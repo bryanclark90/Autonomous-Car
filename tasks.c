@@ -121,9 +121,7 @@ void vTaskGetTemp(void *pvParameters)
 
 void vTaskWriteUART (void *pvParameters)
 {
-	int pulse = 0;
 	int tempTemp = 0;
-	int prevPulse;
 	char bufferMPHtime[50];
 	char bufferDisttemp[50];
 	//kill me
@@ -138,14 +136,13 @@ void vTaskWriteUART (void *pvParameters)
 	{
 		 xQueueReceive(queueUART, &tempTemp, 100);
 		//calculate distance MPH and temp
-		 currentDist = Distance(pulse);
-		currentMPH = MilePerHour(pulse, prevPulse);
-		currentTemp = getFarenheit(tempTemp);
+		currentDist = calcDistance();
+		currentMPH = calcMPH();
+		currentTemp = calcFarenheit(tempTemp);
 		//print to buffer
 		sprintf(bufferMPHtime, "%.3f MPH %d Sec", currentMPH, time);
 		//update time and previous pulse count
 		time++;
-		prevPulse = pulse;
 		putsUART2(clear);
 		putsUART2(bufferMPHtime);
 		putsUART2(second_line);
@@ -180,7 +177,7 @@ void vTaskWriteUART (void *pvParameters)
 //update speed for OC motors
 void vTaskUpdateSpeed (void *pvParameters)
 {
-	while(1)
+	while(!calcIfTen())
 	{
 		xSemaphoreTake (ocSema, portMAX_DELAY);
 
@@ -198,7 +195,6 @@ void vTaskUpdateSpeed (void *pvParameters)
 				 OC3RS = 0x6FFF *(1+(1-diff));
 				 OC2RS = 0x6FFF * (diff/3);
 			   }
-		   forwardTen();
-		}
-		   vTaskDelay(.1 / portTICK_RATE_MS);
-  }
+	}
+    vTaskDelay(.1 / portTICK_RATE_MS);
+}
