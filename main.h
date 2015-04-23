@@ -64,9 +64,6 @@ const unsigned char print_second[] = {27, '[', '1', '@', '\0'};
 volatile int gLeft = 0;
 volatile int gRight = 0;
 volatile int gPulse = 0;
-int flagit = 0;
-
-
 
 //no op(found in utility.h)
 void delay (unsigned int ms);
