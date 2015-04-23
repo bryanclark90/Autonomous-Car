@@ -5,7 +5,9 @@
  * Phone: 509-294-4161                                                         *
  ******************************************************************************/
 #include "main.h"
-
+#include "tasks.h"
+#include "calculations.h"
+#include "setupPeripherals.h"
 
 
 int main (void)
