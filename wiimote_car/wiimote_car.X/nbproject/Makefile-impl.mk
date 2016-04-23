@@ -24,7 +24,7 @@ CLEAN_SUBPROJECTS=${CLEAN_SUBPROJECTS_${SUBPROJECTS}}
 
 
 # Project Name
-PROJECTNAME=old_project
+PROJECTNAME=wiimote_car.X
 
 # Active Configuration
 DEFAULTCONF=default

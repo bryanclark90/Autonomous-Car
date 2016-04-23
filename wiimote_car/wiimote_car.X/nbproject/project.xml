@@ -3,15 +3,15 @@
     <type>com.microchip.mplab.nbide.embedded.makeproject</type>
     <configuration>
         <data xmlns="http://www.netbeans.org/ns/make-project/1">
-            <name>FreeRTOSTest</name>
-            <creation-uuid>1422fa0a-4eff-40d6-a249-295eeb93bd2f</creation-uuid>
+            <name>wiimote_car</name>
+            <creation-uuid>049fc775-6be5-4135-a538-8407f34dd695</creation-uuid>
             <make-project-type>0</make-project-type>
-            <c-extensions>c</c-extensions>
+            <c-extensions/>
             <cpp-extensions/>
-            <header-extensions>h</header-extensions>
+            <header-extensions/>
             <asminc-extensions/>
-            <sourceEncoding>ISO-8859-1</sourceEncoding>
             <make-dep-projects/>
+            <sourceEncoding>UTF-8</sourceEncoding>
         </data>
     </configuration>
 </project>

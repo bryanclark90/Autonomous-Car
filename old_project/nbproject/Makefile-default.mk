@@ -30,12 +30,12 @@ ifeq ($(TYPE_IMAGE), DEBUG_RUN)
 IMAGE_TYPE=debug
 OUTPUT_SUFFIX=elf
 DEBUGGABLE_SUFFIX=elf
-FINAL_IMAGE=dist/${CND_CONF}/${IMAGE_TYPE}/FreeRTOSTest.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}
+FINAL_IMAGE=dist/${CND_CONF}/${IMAGE_TYPE}/old_project.${IMAGE_TYPE}.${OUTPUT_SUFFIX}
 else
 IMAGE_TYPE=production
 OUTPUT_SUFFIX=hex
 DEBUGGABLE_SUFFIX=elf
-FINAL_IMAGE=dist/${CND_CONF}/${IMAGE_TYPE}/FreeRTOSTest.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}
+FINAL_IMAGE=dist/${CND_CONF}/${IMAGE_TYPE}/old_project.${IMAGE_TYPE}.${OUTPUT_SUFFIX}
 endif
 
 # Object Directory
@@ -72,7 +72,10 @@ LDLIBSOPTIONS=
 FIXDEPS=fixDeps
 
 .build-conf:  ${BUILD_SUBPROJECTS}
-	${MAKE} ${MAKE_OPTIONS} -f nbproject/Makefile-default.mk dist/${CND_CONF}/${IMAGE_TYPE}/FreeRTOSTest.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}
+ifneq ($(INFORMATION_MESSAGE), )
+	@echo $(INFORMATION_MESSAGE)
+endif
+	${MAKE}  -f nbproject/Makefile-default.mk dist/${CND_CONF}/${IMAGE_TYPE}/old_project.${IMAGE_TYPE}.${OUTPUT_SUFFIX}
 
 MP_PROCESSOR_OPTION=32MX460F512L
 MP_LINKER_FILE_OPTION=
@@ -86,61 +89,61 @@ endif
 # Rules for buildStep: assembleWithPreprocess
 ifeq ($(TYPE_IMAGE), DEBUG_RUN)
 ${OBJECTDIR}/Source/portable/MPLAB/PIC32MX/port_asm.o: Source/portable/MPLAB/PIC32MX/port_asm.S  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} ${OBJECTDIR}/Source/portable/MPLAB/PIC32MX 
+	@${MKDIR} "${OBJECTDIR}/Source/portable/MPLAB/PIC32MX" 
 	@${RM} ${OBJECTDIR}/Source/portable/MPLAB/PIC32MX/port_asm.o.d 
 	@${RM} ${OBJECTDIR}/Source/portable/MPLAB/PIC32MX/port_asm.o 
 	@${RM} ${OBJECTDIR}/Source/portable/MPLAB/PIC32MX/port_asm.o.ok ${OBJECTDIR}/Source/portable/MPLAB/PIC32MX/port_asm.o.err 
-	@${FIXDEPS} "${OBJECTDIR}/Source/portable/MPLAB/PIC32MX/port_asm.o.d" "${OBJECTDIR}/Source/portable/MPLAB/PIC32MX/port_asm.o.asm.d" -t $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC} $(MP_EXTRA_AS_PRE)  -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/Source/portable/MPLAB/PIC32MX/port_asm.o.d"  -o ${OBJECTDIR}/Source/portable/MPLAB/PIC32MX/port_asm.o Source/portable/MPLAB/PIC32MX/port_asm.S  -Wa,--defsym=__MPLAB_BUILD=1$(MP_EXTRA_AS_POST),-MD="${OBJECTDIR}/Source/portable/MPLAB/PIC32MX/port_asm.o.asm.d",--defsym=__ICD2RAM=1,--defsym=__MPLAB_DEBUG=1,--gdwarf-2,--defsym=__DEBUG=1,--defsym=__MPLAB_DEBUGGER_PK3=1
+	@${FIXDEPS} "${OBJECTDIR}/Source/portable/MPLAB/PIC32MX/port_asm.o.d" "${OBJECTDIR}/Source/portable/MPLAB/PIC32MX/port_asm.o.asm.d" -t $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC} $(MP_EXTRA_AS_PRE)  -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/Source/portable/MPLAB/PIC32MX/port_asm.o.d"  -o ${OBJECTDIR}/Source/portable/MPLAB/PIC32MX/port_asm.o Source/portable/MPLAB/PIC32MX/port_asm.S    -Wa,--defsym=__MPLAB_BUILD=1$(MP_EXTRA_AS_POST),-MD="${OBJECTDIR}/Source/portable/MPLAB/PIC32MX/port_asm.o.asm.d",--defsym=__ICD2RAM=1,--defsym=__MPLAB_DEBUG=1,--gdwarf-2,--defsym=__DEBUG=1,--defsym=__MPLAB_DEBUGGER_PK3=1
 	
 ${OBJECTDIR}/IC2_ISR.o: IC2_ISR.S  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} ${OBJECTDIR} 
+	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/IC2_ISR.o.d 
 	@${RM} ${OBJECTDIR}/IC2_ISR.o 
 	@${RM} ${OBJECTDIR}/IC2_ISR.o.ok ${OBJECTDIR}/IC2_ISR.o.err 
-	@${FIXDEPS} "${OBJECTDIR}/IC2_ISR.o.d" "${OBJECTDIR}/IC2_ISR.o.asm.d" -t $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC} $(MP_EXTRA_AS_PRE)  -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/IC2_ISR.o.d"  -o ${OBJECTDIR}/IC2_ISR.o IC2_ISR.S  -Wa,--defsym=__MPLAB_BUILD=1$(MP_EXTRA_AS_POST),-MD="${OBJECTDIR}/IC2_ISR.o.asm.d",--defsym=__ICD2RAM=1,--defsym=__MPLAB_DEBUG=1,--gdwarf-2,--defsym=__DEBUG=1,--defsym=__MPLAB_DEBUGGER_PK3=1
+	@${FIXDEPS} "${OBJECTDIR}/IC2_ISR.o.d" "${OBJECTDIR}/IC2_ISR.o.asm.d" -t $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC} $(MP_EXTRA_AS_PRE)  -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/IC2_ISR.o.d"  -o ${OBJECTDIR}/IC2_ISR.o IC2_ISR.S    -Wa,--defsym=__MPLAB_BUILD=1$(MP_EXTRA_AS_POST),-MD="${OBJECTDIR}/IC2_ISR.o.asm.d",--defsym=__ICD2RAM=1,--defsym=__MPLAB_DEBUG=1,--gdwarf-2,--defsym=__DEBUG=1,--defsym=__MPLAB_DEBUGGER_PK3=1
 	
 ${OBJECTDIR}/IC3_ISR.o: IC3_ISR.S  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} ${OBJECTDIR} 
+	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/IC3_ISR.o.d 
 	@${RM} ${OBJECTDIR}/IC3_ISR.o 
 	@${RM} ${OBJECTDIR}/IC3_ISR.o.ok ${OBJECTDIR}/IC3_ISR.o.err 
-	@${FIXDEPS} "${OBJECTDIR}/IC3_ISR.o.d" "${OBJECTDIR}/IC3_ISR.o.asm.d" -t $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC} $(MP_EXTRA_AS_PRE)  -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/IC3_ISR.o.d"  -o ${OBJECTDIR}/IC3_ISR.o IC3_ISR.S  -Wa,--defsym=__MPLAB_BUILD=1$(MP_EXTRA_AS_POST),-MD="${OBJECTDIR}/IC3_ISR.o.asm.d",--defsym=__ICD2RAM=1,--defsym=__MPLAB_DEBUG=1,--gdwarf-2,--defsym=__DEBUG=1,--defsym=__MPLAB_DEBUGGER_PK3=1
+	@${FIXDEPS} "${OBJECTDIR}/IC3_ISR.o.d" "${OBJECTDIR}/IC3_ISR.o.asm.d" -t $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC} $(MP_EXTRA_AS_PRE)  -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/IC3_ISR.o.d"  -o ${OBJECTDIR}/IC3_ISR.o IC3_ISR.S    -Wa,--defsym=__MPLAB_BUILD=1$(MP_EXTRA_AS_POST),-MD="${OBJECTDIR}/IC3_ISR.o.asm.d",--defsym=__ICD2RAM=1,--defsym=__MPLAB_DEBUG=1,--gdwarf-2,--defsym=__DEBUG=1,--defsym=__MPLAB_DEBUGGER_PK3=1
 	
 ${OBJECTDIR}/EXT3_ISR.o: EXT3_ISR.S  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} ${OBJECTDIR} 
+	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/EXT3_ISR.o.d 
 	@${RM} ${OBJECTDIR}/EXT3_ISR.o 
 	@${RM} ${OBJECTDIR}/EXT3_ISR.o.ok ${OBJECTDIR}/EXT3_ISR.o.err 
-	@${FIXDEPS} "${OBJECTDIR}/EXT3_ISR.o.d" "${OBJECTDIR}/EXT3_ISR.o.asm.d" -t $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC} $(MP_EXTRA_AS_PRE)  -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/EXT3_ISR.o.d"  -o ${OBJECTDIR}/EXT3_ISR.o EXT3_ISR.S  -Wa,--defsym=__MPLAB_BUILD=1$(MP_EXTRA_AS_POST),-MD="${OBJECTDIR}/EXT3_ISR.o.asm.d",--defsym=__ICD2RAM=1,--defsym=__MPLAB_DEBUG=1,--gdwarf-2,--defsym=__DEBUG=1,--defsym=__MPLAB_DEBUGGER_PK3=1
+	@${FIXDEPS} "${OBJECTDIR}/EXT3_ISR.o.d" "${OBJECTDIR}/EXT3_ISR.o.asm.d" -t $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC} $(MP_EXTRA_AS_PRE)  -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/EXT3_ISR.o.d"  -o ${OBJECTDIR}/EXT3_ISR.o EXT3_ISR.S    -Wa,--defsym=__MPLAB_BUILD=1$(MP_EXTRA_AS_POST),-MD="${OBJECTDIR}/EXT3_ISR.o.asm.d",--defsym=__ICD2RAM=1,--defsym=__MPLAB_DEBUG=1,--gdwarf-2,--defsym=__DEBUG=1,--defsym=__MPLAB_DEBUGGER_PK3=1
 	
 else
 ${OBJECTDIR}/Source/portable/MPLAB/PIC32MX/port_asm.o: Source/portable/MPLAB/PIC32MX/port_asm.S  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} ${OBJECTDIR}/Source/portable/MPLAB/PIC32MX 
+	@${MKDIR} "${OBJECTDIR}/Source/portable/MPLAB/PIC32MX" 
 	@${RM} ${OBJECTDIR}/Source/portable/MPLAB/PIC32MX/port_asm.o.d 
 	@${RM} ${OBJECTDIR}/Source/portable/MPLAB/PIC32MX/port_asm.o 
 	@${RM} ${OBJECTDIR}/Source/portable/MPLAB/PIC32MX/port_asm.o.ok ${OBJECTDIR}/Source/portable/MPLAB/PIC32MX/port_asm.o.err 
-	@${FIXDEPS} "${OBJECTDIR}/Source/portable/MPLAB/PIC32MX/port_asm.o.d" "${OBJECTDIR}/Source/portable/MPLAB/PIC32MX/port_asm.o.asm.d" -t $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC} $(MP_EXTRA_AS_PRE)  -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/Source/portable/MPLAB/PIC32MX/port_asm.o.d"  -o ${OBJECTDIR}/Source/portable/MPLAB/PIC32MX/port_asm.o Source/portable/MPLAB/PIC32MX/port_asm.S  -Wa,--defsym=__MPLAB_BUILD=1$(MP_EXTRA_AS_POST),-MD="${OBJECTDIR}/Source/portable/MPLAB/PIC32MX/port_asm.o.asm.d",--gdwarf-2
+	@${FIXDEPS} "${OBJECTDIR}/Source/portable/MPLAB/PIC32MX/port_asm.o.d" "${OBJECTDIR}/Source/portable/MPLAB/PIC32MX/port_asm.o.asm.d" -t $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC} $(MP_EXTRA_AS_PRE)  -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/Source/portable/MPLAB/PIC32MX/port_asm.o.d"  -o ${OBJECTDIR}/Source/portable/MPLAB/PIC32MX/port_asm.o Source/portable/MPLAB/PIC32MX/port_asm.S    -Wa,--defsym=__MPLAB_BUILD=1$(MP_EXTRA_AS_POST),-MD="${OBJECTDIR}/Source/portable/MPLAB/PIC32MX/port_asm.o.asm.d",--gdwarf-2
 	
 ${OBJECTDIR}/IC2_ISR.o: IC2_ISR.S  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} ${OBJECTDIR} 
+	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/IC2_ISR.o.d 
 	@${RM} ${OBJECTDIR}/IC2_ISR.o 
 	@${RM} ${OBJECTDIR}/IC2_ISR.o.ok ${OBJECTDIR}/IC2_ISR.o.err 
-	@${FIXDEPS} "${OBJECTDIR}/IC2_ISR.o.d" "${OBJECTDIR}/IC2_ISR.o.asm.d" -t $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC} $(MP_EXTRA_AS_PRE)  -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/IC2_ISR.o.d"  -o ${OBJECTDIR}/IC2_ISR.o IC2_ISR.S  -Wa,--defsym=__MPLAB_BUILD=1$(MP_EXTRA_AS_POST),-MD="${OBJECTDIR}/IC2_ISR.o.asm.d",--gdwarf-2
+	@${FIXDEPS} "${OBJECTDIR}/IC2_ISR.o.d" "${OBJECTDIR}/IC2_ISR.o.asm.d" -t $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC} $(MP_EXTRA_AS_PRE)  -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/IC2_ISR.o.d"  -o ${OBJECTDIR}/IC2_ISR.o IC2_ISR.S    -Wa,--defsym=__MPLAB_BUILD=1$(MP_EXTRA_AS_POST),-MD="${OBJECTDIR}/IC2_ISR.o.asm.d",--gdwarf-2
 	
 ${OBJECTDIR}/IC3_ISR.o: IC3_ISR.S  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} ${OBJECTDIR} 
+	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/IC3_ISR.o.d 
 	@${RM} ${OBJECTDIR}/IC3_ISR.o 
 	@${RM} ${OBJECTDIR}/IC3_ISR.o.ok ${OBJECTDIR}/IC3_ISR.o.err 
-	@${FIXDEPS} "${OBJECTDIR}/IC3_ISR.o.d" "${OBJECTDIR}/IC3_ISR.o.asm.d" -t $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC} $(MP_EXTRA_AS_PRE)  -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/IC3_ISR.o.d"  -o ${OBJECTDIR}/IC3_ISR.o IC3_ISR.S  -Wa,--defsym=__MPLAB_BUILD=1$(MP_EXTRA_AS_POST),-MD="${OBJECTDIR}/IC3_ISR.o.asm.d",--gdwarf-2
+	@${FIXDEPS} "${OBJECTDIR}/IC3_ISR.o.d" "${OBJECTDIR}/IC3_ISR.o.asm.d" -t $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC} $(MP_EXTRA_AS_PRE)  -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/IC3_ISR.o.d"  -o ${OBJECTDIR}/IC3_ISR.o IC3_ISR.S    -Wa,--defsym=__MPLAB_BUILD=1$(MP_EXTRA_AS_POST),-MD="${OBJECTDIR}/IC3_ISR.o.asm.d",--gdwarf-2
 	
 ${OBJECTDIR}/EXT3_ISR.o: EXT3_ISR.S  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} ${OBJECTDIR} 
+	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/EXT3_ISR.o.d 
 	@${RM} ${OBJECTDIR}/EXT3_ISR.o 
 	@${RM} ${OBJECTDIR}/EXT3_ISR.o.ok ${OBJECTDIR}/EXT3_ISR.o.err 
-	@${FIXDEPS} "${OBJECTDIR}/EXT3_ISR.o.d" "${OBJECTDIR}/EXT3_ISR.o.asm.d" -t $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC} $(MP_EXTRA_AS_PRE)  -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/EXT3_ISR.o.d"  -o ${OBJECTDIR}/EXT3_ISR.o EXT3_ISR.S  -Wa,--defsym=__MPLAB_BUILD=1$(MP_EXTRA_AS_POST),-MD="${OBJECTDIR}/EXT3_ISR.o.asm.d",--gdwarf-2
+	@${FIXDEPS} "${OBJECTDIR}/EXT3_ISR.o.d" "${OBJECTDIR}/EXT3_ISR.o.asm.d" -t $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC} $(MP_EXTRA_AS_PRE)  -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/EXT3_ISR.o.d"  -o ${OBJECTDIR}/EXT3_ISR.o EXT3_ISR.S    -Wa,--defsym=__MPLAB_BUILD=1$(MP_EXTRA_AS_POST),-MD="${OBJECTDIR}/EXT3_ISR.o.asm.d",--gdwarf-2
 	
 endif
 
@@ -148,101 +151,101 @@ endif
 # Rules for buildStep: compile
 ifeq ($(TYPE_IMAGE), DEBUG_RUN)
 ${OBJECTDIR}/main.o: main.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} ${OBJECTDIR} 
+	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/main.o.d 
 	@${RM} ${OBJECTDIR}/main.o 
-	@${FIXDEPS} "${OBJECTDIR}/main.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"Source/portable/MPLAB/PIC32MX" -I"Source/include" -I"Source/portable/MemMang" -MMD -MF "${OBJECTDIR}/main.o.d" -o ${OBJECTDIR}/main.o main.c   
+	@${FIXDEPS} "${OBJECTDIR}/main.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -I"Source/portable/MPLAB/PIC32MX" -I"Source/include" -I"Source/portable/MemMang" -MMD -MF "${OBJECTDIR}/main.o.d" -o ${OBJECTDIR}/main.o main.c     
 	
 ${OBJECTDIR}/ConfigPerformance.o: ConfigPerformance.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} ${OBJECTDIR} 
+	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/ConfigPerformance.o.d 
 	@${RM} ${OBJECTDIR}/ConfigPerformance.o 
-	@${FIXDEPS} "${OBJECTDIR}/ConfigPerformance.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"Source/portable/MPLAB/PIC32MX" -I"Source/include" -I"Source/portable/MemMang" -MMD -MF "${OBJECTDIR}/ConfigPerformance.o.d" -o ${OBJECTDIR}/ConfigPerformance.o ConfigPerformance.c   
+	@${FIXDEPS} "${OBJECTDIR}/ConfigPerformance.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -I"Source/portable/MPLAB/PIC32MX" -I"Source/include" -I"Source/portable/MemMang" -MMD -MF "${OBJECTDIR}/ConfigPerformance.o.d" -o ${OBJECTDIR}/ConfigPerformance.o ConfigPerformance.c     
 	
 ${OBJECTDIR}/Source/tasks.o: Source/tasks.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} ${OBJECTDIR}/Source 
+	@${MKDIR} "${OBJECTDIR}/Source" 
 	@${RM} ${OBJECTDIR}/Source/tasks.o.d 
 	@${RM} ${OBJECTDIR}/Source/tasks.o 
-	@${FIXDEPS} "${OBJECTDIR}/Source/tasks.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"Source/portable/MPLAB/PIC32MX" -I"Source/include" -I"Source/portable/MemMang" -MMD -MF "${OBJECTDIR}/Source/tasks.o.d" -o ${OBJECTDIR}/Source/tasks.o Source/tasks.c   
+	@${FIXDEPS} "${OBJECTDIR}/Source/tasks.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -I"Source/portable/MPLAB/PIC32MX" -I"Source/include" -I"Source/portable/MemMang" -MMD -MF "${OBJECTDIR}/Source/tasks.o.d" -o ${OBJECTDIR}/Source/tasks.o Source/tasks.c     
 	
 ${OBJECTDIR}/Source/portable/MPLAB/PIC32MX/port.o: Source/portable/MPLAB/PIC32MX/port.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} ${OBJECTDIR}/Source/portable/MPLAB/PIC32MX 
+	@${MKDIR} "${OBJECTDIR}/Source/portable/MPLAB/PIC32MX" 
 	@${RM} ${OBJECTDIR}/Source/portable/MPLAB/PIC32MX/port.o.d 
 	@${RM} ${OBJECTDIR}/Source/portable/MPLAB/PIC32MX/port.o 
-	@${FIXDEPS} "${OBJECTDIR}/Source/portable/MPLAB/PIC32MX/port.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"Source/portable/MPLAB/PIC32MX" -I"Source/include" -I"Source/portable/MemMang" -MMD -MF "${OBJECTDIR}/Source/portable/MPLAB/PIC32MX/port.o.d" -o ${OBJECTDIR}/Source/portable/MPLAB/PIC32MX/port.o Source/portable/MPLAB/PIC32MX/port.c   
+	@${FIXDEPS} "${OBJECTDIR}/Source/portable/MPLAB/PIC32MX/port.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -I"Source/portable/MPLAB/PIC32MX" -I"Source/include" -I"Source/portable/MemMang" -MMD -MF "${OBJECTDIR}/Source/portable/MPLAB/PIC32MX/port.o.d" -o ${OBJECTDIR}/Source/portable/MPLAB/PIC32MX/port.o Source/portable/MPLAB/PIC32MX/port.c     
 	
 ${OBJECTDIR}/Source/list.o: Source/list.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} ${OBJECTDIR}/Source 
+	@${MKDIR} "${OBJECTDIR}/Source" 
 	@${RM} ${OBJECTDIR}/Source/list.o.d 
 	@${RM} ${OBJECTDIR}/Source/list.o 
-	@${FIXDEPS} "${OBJECTDIR}/Source/list.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"Source/portable/MPLAB/PIC32MX" -I"Source/include" -I"Source/portable/MemMang" -MMD -MF "${OBJECTDIR}/Source/list.o.d" -o ${OBJECTDIR}/Source/list.o Source/list.c   
+	@${FIXDEPS} "${OBJECTDIR}/Source/list.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -I"Source/portable/MPLAB/PIC32MX" -I"Source/include" -I"Source/portable/MemMang" -MMD -MF "${OBJECTDIR}/Source/list.o.d" -o ${OBJECTDIR}/Source/list.o Source/list.c     
 	
 ${OBJECTDIR}/Source/queue.o: Source/queue.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} ${OBJECTDIR}/Source 
+	@${MKDIR} "${OBJECTDIR}/Source" 
 	@${RM} ${OBJECTDIR}/Source/queue.o.d 
 	@${RM} ${OBJECTDIR}/Source/queue.o 
-	@${FIXDEPS} "${OBJECTDIR}/Source/queue.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"Source/portable/MPLAB/PIC32MX" -I"Source/include" -I"Source/portable/MemMang" -MMD -MF "${OBJECTDIR}/Source/queue.o.d" -o ${OBJECTDIR}/Source/queue.o Source/queue.c   
+	@${FIXDEPS} "${OBJECTDIR}/Source/queue.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -I"Source/portable/MPLAB/PIC32MX" -I"Source/include" -I"Source/portable/MemMang" -MMD -MF "${OBJECTDIR}/Source/queue.o.d" -o ${OBJECTDIR}/Source/queue.o Source/queue.c     
 	
 ${OBJECTDIR}/Source/portable/MemMang/heap_1.o: Source/portable/MemMang/heap_1.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} ${OBJECTDIR}/Source/portable/MemMang 
+	@${MKDIR} "${OBJECTDIR}/Source/portable/MemMang" 
 	@${RM} ${OBJECTDIR}/Source/portable/MemMang/heap_1.o.d 
 	@${RM} ${OBJECTDIR}/Source/portable/MemMang/heap_1.o 
-	@${FIXDEPS} "${OBJECTDIR}/Source/portable/MemMang/heap_1.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"Source/portable/MPLAB/PIC32MX" -I"Source/include" -I"Source/portable/MemMang" -MMD -MF "${OBJECTDIR}/Source/portable/MemMang/heap_1.o.d" -o ${OBJECTDIR}/Source/portable/MemMang/heap_1.o Source/portable/MemMang/heap_1.c   
+	@${FIXDEPS} "${OBJECTDIR}/Source/portable/MemMang/heap_1.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -I"Source/portable/MPLAB/PIC32MX" -I"Source/include" -I"Source/portable/MemMang" -MMD -MF "${OBJECTDIR}/Source/portable/MemMang/heap_1.o.d" -o ${OBJECTDIR}/Source/portable/MemMang/heap_1.o Source/portable/MemMang/heap_1.c     
 	
 ${OBJECTDIR}/Source/timers.o: Source/timers.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} ${OBJECTDIR}/Source 
+	@${MKDIR} "${OBJECTDIR}/Source" 
 	@${RM} ${OBJECTDIR}/Source/timers.o.d 
 	@${RM} ${OBJECTDIR}/Source/timers.o 
-	@${FIXDEPS} "${OBJECTDIR}/Source/timers.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"Source/portable/MPLAB/PIC32MX" -I"Source/include" -I"Source/portable/MemMang" -MMD -MF "${OBJECTDIR}/Source/timers.o.d" -o ${OBJECTDIR}/Source/timers.o Source/timers.c   
+	@${FIXDEPS} "${OBJECTDIR}/Source/timers.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -I"Source/portable/MPLAB/PIC32MX" -I"Source/include" -I"Source/portable/MemMang" -MMD -MF "${OBJECTDIR}/Source/timers.o.d" -o ${OBJECTDIR}/Source/timers.o Source/timers.c     
 	
 else
 ${OBJECTDIR}/main.o: main.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} ${OBJECTDIR} 
+	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/main.o.d 
 	@${RM} ${OBJECTDIR}/main.o 
-	@${FIXDEPS} "${OBJECTDIR}/main.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"Source/portable/MPLAB/PIC32MX" -I"Source/include" -I"Source/portable/MemMang" -MMD -MF "${OBJECTDIR}/main.o.d" -o ${OBJECTDIR}/main.o main.c   
+	@${FIXDEPS} "${OBJECTDIR}/main.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -I"Source/portable/MPLAB/PIC32MX" -I"Source/include" -I"Source/portable/MemMang" -MMD -MF "${OBJECTDIR}/main.o.d" -o ${OBJECTDIR}/main.o main.c     
 	
 ${OBJECTDIR}/ConfigPerformance.o: ConfigPerformance.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} ${OBJECTDIR} 
+	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/ConfigPerformance.o.d 
 	@${RM} ${OBJECTDIR}/ConfigPerformance.o 
-	@${FIXDEPS} "${OBJECTDIR}/ConfigPerformance.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"Source/portable/MPLAB/PIC32MX" -I"Source/include" -I"Source/portable/MemMang" -MMD -MF "${OBJECTDIR}/ConfigPerformance.o.d" -o ${OBJECTDIR}/ConfigPerformance.o ConfigPerformance.c   
+	@${FIXDEPS} "${OBJECTDIR}/ConfigPerformance.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -I"Source/portable/MPLAB/PIC32MX" -I"Source/include" -I"Source/portable/MemMang" -MMD -MF "${OBJECTDIR}/ConfigPerformance.o.d" -o ${OBJECTDIR}/ConfigPerformance.o ConfigPerformance.c     
 	
 ${OBJECTDIR}/Source/tasks.o: Source/tasks.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} ${OBJECTDIR}/Source 
+	@${MKDIR} "${OBJECTDIR}/Source" 
 	@${RM} ${OBJECTDIR}/Source/tasks.o.d 
 	@${RM} ${OBJECTDIR}/Source/tasks.o 
-	@${FIXDEPS} "${OBJECTDIR}/Source/tasks.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"Source/portable/MPLAB/PIC32MX" -I"Source/include" -I"Source/portable/MemMang" -MMD -MF "${OBJECTDIR}/Source/tasks.o.d" -o ${OBJECTDIR}/Source/tasks.o Source/tasks.c   
+	@${FIXDEPS} "${OBJECTDIR}/Source/tasks.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -I"Source/portable/MPLAB/PIC32MX" -I"Source/include" -I"Source/portable/MemMang" -MMD -MF "${OBJECTDIR}/Source/tasks.o.d" -o ${OBJECTDIR}/Source/tasks.o Source/tasks.c     
 	
 ${OBJECTDIR}/Source/portable/MPLAB/PIC32MX/port.o: Source/portable/MPLAB/PIC32MX/port.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} ${OBJECTDIR}/Source/portable/MPLAB/PIC32MX 
+	@${MKDIR} "${OBJECTDIR}/Source/portable/MPLAB/PIC32MX" 
 	@${RM} ${OBJECTDIR}/Source/portable/MPLAB/PIC32MX/port.o.d 
 	@${RM} ${OBJECTDIR}/Source/portable/MPLAB/PIC32MX/port.o 
-	@${FIXDEPS} "${OBJECTDIR}/Source/portable/MPLAB/PIC32MX/port.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"Source/portable/MPLAB/PIC32MX" -I"Source/include" -I"Source/portable/MemMang" -MMD -MF "${OBJECTDIR}/Source/portable/MPLAB/PIC32MX/port.o.d" -o ${OBJECTDIR}/Source/portable/MPLAB/PIC32MX/port.o Source/portable/MPLAB/PIC32MX/port.c   
+	@${FIXDEPS} "${OBJECTDIR}/Source/portable/MPLAB/PIC32MX/port.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -I"Source/portable/MPLAB/PIC32MX" -I"Source/include" -I"Source/portable/MemMang" -MMD -MF "${OBJECTDIR}/Source/portable/MPLAB/PIC32MX/port.o.d" -o ${OBJECTDIR}/Source/portable/MPLAB/PIC32MX/port.o Source/portable/MPLAB/PIC32MX/port.c     
 	
 ${OBJECTDIR}/Source/list.o: Source/list.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} ${OBJECTDIR}/Source 
+	@${MKDIR} "${OBJECTDIR}/Source" 
 	@${RM} ${OBJECTDIR}/Source/list.o.d 
 	@${RM} ${OBJECTDIR}/Source/list.o 
-	@${FIXDEPS} "${OBJECTDIR}/Source/list.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"Source/portable/MPLAB/PIC32MX" -I"Source/include" -I"Source/portable/MemMang" -MMD -MF "${OBJECTDIR}/Source/list.o.d" -o ${OBJECTDIR}/Source/list.o Source/list.c   
+	@${FIXDEPS} "${OBJECTDIR}/Source/list.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -I"Source/portable/MPLAB/PIC32MX" -I"Source/include" -I"Source/portable/MemMang" -MMD -MF "${OBJECTDIR}/Source/list.o.d" -o ${OBJECTDIR}/Source/list.o Source/list.c     
 	
 ${OBJECTDIR}/Source/queue.o: Source/queue.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} ${OBJECTDIR}/Source 
+	@${MKDIR} "${OBJECTDIR}/Source" 
 	@${RM} ${OBJECTDIR}/Source/queue.o.d 
 	@${RM} ${OBJECTDIR}/Source/queue.o 
-	@${FIXDEPS} "${OBJECTDIR}/Source/queue.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"Source/portable/MPLAB/PIC32MX" -I"Source/include" -I"Source/portable/MemMang" -MMD -MF "${OBJECTDIR}/Source/queue.o.d" -o ${OBJECTDIR}/Source/queue.o Source/queue.c   
+	@${FIXDEPS} "${OBJECTDIR}/Source/queue.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -I"Source/portable/MPLAB/PIC32MX" -I"Source/include" -I"Source/portable/MemMang" -MMD -MF "${OBJECTDIR}/Source/queue.o.d" -o ${OBJECTDIR}/Source/queue.o Source/queue.c     
 	
 ${OBJECTDIR}/Source/portable/MemMang/heap_1.o: Source/portable/MemMang/heap_1.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} ${OBJECTDIR}/Source/portable/MemMang 
+	@${MKDIR} "${OBJECTDIR}/Source/portable/MemMang" 
 	@${RM} ${OBJECTDIR}/Source/portable/MemMang/heap_1.o.d 
 	@${RM} ${OBJECTDIR}/Source/portable/MemMang/heap_1.o 
-	@${FIXDEPS} "${OBJECTDIR}/Source/portable/MemMang/heap_1.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"Source/portable/MPLAB/PIC32MX" -I"Source/include" -I"Source/portable/MemMang" -MMD -MF "${OBJECTDIR}/Source/portable/MemMang/heap_1.o.d" -o ${OBJECTDIR}/Source/portable/MemMang/heap_1.o Source/portable/MemMang/heap_1.c   
+	@${FIXDEPS} "${OBJECTDIR}/Source/portable/MemMang/heap_1.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -I"Source/portable/MPLAB/PIC32MX" -I"Source/include" -I"Source/portable/MemMang" -MMD -MF "${OBJECTDIR}/Source/portable/MemMang/heap_1.o.d" -o ${OBJECTDIR}/Source/portable/MemMang/heap_1.o Source/portable/MemMang/heap_1.c     
 	
 ${OBJECTDIR}/Source/timers.o: Source/timers.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} ${OBJECTDIR}/Source 
+	@${MKDIR} "${OBJECTDIR}/Source" 
 	@${RM} ${OBJECTDIR}/Source/timers.o.d 
 	@${RM} ${OBJECTDIR}/Source/timers.o 
-	@${FIXDEPS} "${OBJECTDIR}/Source/timers.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"Source/portable/MPLAB/PIC32MX" -I"Source/include" -I"Source/portable/MemMang" -MMD -MF "${OBJECTDIR}/Source/timers.o.d" -o ${OBJECTDIR}/Source/timers.o Source/timers.c   
+	@${FIXDEPS} "${OBJECTDIR}/Source/timers.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -I"Source/portable/MPLAB/PIC32MX" -I"Source/include" -I"Source/portable/MemMang" -MMD -MF "${OBJECTDIR}/Source/timers.o.d" -o ${OBJECTDIR}/Source/timers.o Source/timers.c     
 	
 endif
 
@@ -255,15 +258,15 @@ endif
 # ------------------------------------------------------------------------------------
 # Rules for buildStep: link
 ifeq ($(TYPE_IMAGE), DEBUG_RUN)
-dist/${CND_CONF}/${IMAGE_TYPE}/FreeRTOSTest.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}: ${OBJECTFILES}  nbproject/Makefile-${CND_CONF}.mk    
+dist/${CND_CONF}/${IMAGE_TYPE}/old_project.${IMAGE_TYPE}.${OUTPUT_SUFFIX}: ${OBJECTFILES}  nbproject/Makefile-${CND_CONF}.mk    
 	@${MKDIR} dist/${CND_CONF}/${IMAGE_TYPE} 
-	${MP_CC} $(MP_EXTRA_LD_PRE)  -mdebugger -D__MPLAB_DEBUGGER_PK3=1 -mprocessor=$(MP_PROCESSOR_OPTION)  -o dist/${CND_CONF}/${IMAGE_TYPE}/FreeRTOSTest.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX} ${OBJECTFILES_QUOTED_IF_SPACED}           -mreserve=data@0x0:0x1FC -mreserve=boot@0x1FC02000:0x1FC02FEF -mreserve=boot@0x1FC02000:0x1FC024FF  -Wl,--defsym=__MPLAB_BUILD=1$(MP_EXTRA_LD_POST)$(MP_LINKER_FILE_OPTION),--defsym=__MPLAB_DEBUG=1,--defsym=__DEBUG=1,--defsym=__MPLAB_DEBUGGER_PK3=1,-Map="${DISTDIR}/${PROJECTNAME}.${IMAGE_TYPE}.map"
+	${MP_CC} $(MP_EXTRA_LD_PRE)  -mdebugger -D__MPLAB_DEBUGGER_PK3=1 -mprocessor=$(MP_PROCESSOR_OPTION)  -o dist/${CND_CONF}/${IMAGE_TYPE}/old_project.${IMAGE_TYPE}.${OUTPUT_SUFFIX} ${OBJECTFILES_QUOTED_IF_SPACED}              -mreserve=boot@0x1FC02000:0x1FC02FEF -mreserve=boot@0x1FC02000:0x1FC024FF  -Wl,--defsym=__MPLAB_BUILD=1$(MP_EXTRA_LD_POST)$(MP_LINKER_FILE_OPTION),--defsym=__MPLAB_DEBUG=1,--defsym=__DEBUG=1,--defsym=__MPLAB_DEBUGGER_PK3=1,-Map="${DISTDIR}/${PROJECTNAME}.${IMAGE_TYPE}.map",--memorysummary,dist/${CND_CONF}/${IMAGE_TYPE}/memoryfile.xml
 	
 else
-dist/${CND_CONF}/${IMAGE_TYPE}/FreeRTOSTest.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}: ${OBJECTFILES}  nbproject/Makefile-${CND_CONF}.mk   
+dist/${CND_CONF}/${IMAGE_TYPE}/old_project.${IMAGE_TYPE}.${OUTPUT_SUFFIX}: ${OBJECTFILES}  nbproject/Makefile-${CND_CONF}.mk   
 	@${MKDIR} dist/${CND_CONF}/${IMAGE_TYPE} 
-	${MP_CC} $(MP_EXTRA_LD_PRE)  -mprocessor=$(MP_PROCESSOR_OPTION)  -o dist/${CND_CONF}/${IMAGE_TYPE}/FreeRTOSTest.X.${IMAGE_TYPE}.${DEBUGGABLE_SUFFIX} ${OBJECTFILES_QUOTED_IF_SPACED}          -Wl,--defsym=__MPLAB_BUILD=1$(MP_EXTRA_LD_POST)$(MP_LINKER_FILE_OPTION),-Map="${DISTDIR}/${PROJECTNAME}.${IMAGE_TYPE}.map"
-	${MP_CC_DIR}\\xc32-bin2hex dist/${CND_CONF}/${IMAGE_TYPE}/FreeRTOSTest.X.${IMAGE_TYPE}.${DEBUGGABLE_SUFFIX} 
+	${MP_CC} $(MP_EXTRA_LD_PRE)  -mprocessor=$(MP_PROCESSOR_OPTION)  -o dist/${CND_CONF}/${IMAGE_TYPE}/old_project.${IMAGE_TYPE}.${DEBUGGABLE_SUFFIX} ${OBJECTFILES_QUOTED_IF_SPACED}            -Wl,--defsym=__MPLAB_BUILD=1$(MP_EXTRA_LD_POST)$(MP_LINKER_FILE_OPTION),-Map="${DISTDIR}/${PROJECTNAME}.${IMAGE_TYPE}.map",--memorysummary,dist/${CND_CONF}/${IMAGE_TYPE}/memoryfile.xml
+	${MP_CC_DIR}\\xc32-bin2hex dist/${CND_CONF}/${IMAGE_TYPE}/old_project.${IMAGE_TYPE}.${DEBUGGABLE_SUFFIX} 
 endif
 
 

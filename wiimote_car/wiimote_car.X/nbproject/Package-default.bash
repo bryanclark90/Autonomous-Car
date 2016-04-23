@@ -10,9 +10,9 @@ CND_CONF=default
 CND_DISTDIR=dist
 TMPDIR=build/${CND_CONF}/${IMAGE_TYPE}/tmp-packaging
 TMPDIRNAME=tmp-packaging
-OUTPUT_PATH=dist/${CND_CONF}/${IMAGE_TYPE}/old_project.${IMAGE_TYPE}.${OUTPUT_SUFFIX}
-OUTPUT_BASENAME=old_project.${IMAGE_TYPE}.${OUTPUT_SUFFIX}
-PACKAGE_TOP_DIR=oldproject/
+OUTPUT_PATH=dist/${CND_CONF}/${IMAGE_TYPE}/wiimote_car.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}
+OUTPUT_BASENAME=wiimote_car.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}
+PACKAGE_TOP_DIR=wiimotecar.x/
 
 # Functions
 function checkReturnCode
@@ -57,15 +57,15 @@ mkdir -p ${TMPDIR}
 
 # Copy files and create directories and links
 cd "${TOP}"
-makeDirectory ${TMPDIR}/oldproject/bin
+makeDirectory ${TMPDIR}/wiimotecar.x/bin
 copyFileToTmpDir "${OUTPUT_PATH}" "${TMPDIR}/${PACKAGE_TOP_DIR}bin/${OUTPUT_BASENAME}" 0755
 
 
 # Generate tar file
 cd "${TOP}"
-rm -f ${CND_DISTDIR}/${CND_CONF}/package/oldproject.tar
+rm -f ${CND_DISTDIR}/${CND_CONF}/package/wiimotecar.x.tar
 cd ${TMPDIR}
-tar -vcf ../../../../${CND_DISTDIR}/${CND_CONF}/package/oldproject.tar *
+tar -vcf ../../../../${CND_DISTDIR}/${CND_CONF}/package/wiimotecar.x.tar *
 checkReturnCode
 
 # Cleanup
